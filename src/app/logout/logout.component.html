@@ -1,0 +1,12 @@
+<div style="width: 100%; height: 100%;" fxLayout="row" fxLayoutAlign="center center">
+  <div *ngIf="loggingOut; else loggedOut;">
+    <mat-spinner diameter="40">Logging out ... </mat-spinner>
+  </div>
+  
+  <ng-template #loggedOut>
+    <span>You have logged out!</span>
+    <br />
+    <a [routerLink]="'/auth'">Log Back In</a>
+  </ng-template>
+</div>
+

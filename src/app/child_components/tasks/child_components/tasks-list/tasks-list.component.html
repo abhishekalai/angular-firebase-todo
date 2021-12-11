@@ -1,0 +1,15 @@
+<div class="tasks-header" fxLayout="row" fxLayoutAlign="start">
+  <div fxLayout="column" fxLayoutAlign="start center">
+    <button mat-icon-button><mat-icon>menu</mat-icon></button>
+  </div>
+  <div class="title-container">
+    <h1>My Day</h1>
+    <span>{{ today | date: 'fullDate'}}</span>
+  </div>
+</div>
+
+<app-new-task (taskCreated)="ngOnInit()"></app-new-task>
+
+<ng-container>
+  <app-task-list-item *ngFor="let tk of tasks$" [taskItem]="tk" (itemDeleted)="deleted($event)" (itemUpdated)="updated($event)"></app-task-list-item>
+</ng-container>

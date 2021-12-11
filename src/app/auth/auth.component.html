@@ -1,0 +1,50 @@
+<div class="form-container">
+  <mat-tab-group>
+    <mat-tab label="Log In">
+      <ng-template matTabContent>
+        <form [formGroup]="emailSignInForm" class="sign-in-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="johndoe@example.com" value="" formControlName="email">
+            <mat-error *ngIf="emailSignInForm.get('email')?.errors?.required">Email Address is required</mat-error>
+            <mat-error *ngIf="emailSignInForm.get('email')?.errors?.maxLength">Max 100 Characters allowed</mat-error>
+          </mat-form-field>
+        
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="•••••••••••" formControlName="password">
+          </mat-form-field>
+        </form>
+        <div style="text-align: center;">
+          <button mat-raised-button color="primary" [ngClass]="{ 'btn-sign-in': true, spinner: emailSignInInProgress }" [disabled]="emailSignInInProgress" (click)="doEmailSignIn()">
+            Log In
+          </button>
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Sign Up">
+      <ng-template matTabContent>
+        <form [formGroup]="emailSignUpForm" class="sign-up-form">
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="johndoe@example.com" value="" formControlName="email">
+          </mat-form-field>
+        
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Password</mat-label>
+            <input matInput type="password" placeholder="•••••••••••" formControlName="password">
+          </mat-form-field>
+
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Confirm Password</mat-label>
+            <input matInput type="password" placeholder="•••••••••••" formControlName="confirmPassword">
+          </mat-form-field>
+        </form>
+        <button mat-raised-button color="primary" class="btn-sign-up" [class.spinner]="emailSignUpInProgress" [disabled]="emailSignUpInProgress" (click)="doEmailSignUp()">
+          <!-- <mat-progress-spinner *ngIf="emailSignUpInProgress"></mat-progress-spinner> -->
+          Sign Up
+        </button>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>  
+</div>

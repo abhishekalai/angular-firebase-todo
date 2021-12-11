@@ -1,0 +1,87 @@
+.form-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 3rem;
+}
+
+.sign-in-form,
+.sign-up-form {
+  margin-top: 2rem;
+  width: 500px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-in-form, .sign-up-form {
+  padding: unset 2rem
+}
+
+.btn-sign-in, .btn-sign-up {
+  width: 100%;
+}
+
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner .8s linear infinite;
+}
+
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
+  .form-container {
+    padding-top: 10%;
+  }
+}
+
+/* 
+  ##Device = Laptops, Desktops
+  ##Screen = B/w 1025px to 1280px
+*/
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .form-container {
+    padding-top: 10%;
+  }
+}
+
+/* 
+  ##Device = Tablets, Ipads (portrait)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .form-container {
+    padding-top: 10%;
+  }
+}
+
+/* 
+  ##Device = Tablets, Ipads (landscape)
+  ##Screen = B/w 768px to 1024px
+*/
+
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .form-container {
+    padding-top: 10%;
+  }
+}

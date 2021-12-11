@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "angular-todo-4ab75": {
+      "hosting": {
+        "ng-material": [
+          "angular-todo-4ab75"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "angular-todo-4ab75"
+  }
+}
