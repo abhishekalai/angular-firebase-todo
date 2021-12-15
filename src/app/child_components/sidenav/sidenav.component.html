@@ -9,12 +9,13 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
     <!-- <mat-sidenav #snav mode="over" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56"> -->
       <mat-nav-list>
-        <a mat-list-item routerLink="/tasks/upcoming">Upcoming</a>
-        <a mat-list-item routerLink="/tasks/completed">Completed</a>
+        <a mat-list-item [routerLinkActive]="'link-active'" href="/tasks/myday">My Day</a>
+        <!-- <a mat-list-item [routerLinkActive]="'link-active'" href="/tasks/upcoming">Upcoming</a> -->
+        <a mat-list-item [routerLinkActive]="'link-active'" href="/tasks/completed">Completed</a>
         <mat-divider></mat-divider>
-        <a mat-list-item routerLink="/tasks/bucket/{{nav.id}}" *ngFor="let nav of taskBuckets">{{nav.title}}</a>
-        <div>
-          <input type="text" placeholder="New Bucket" #bucketName>
+        <a mat-list-item [routerLinkActive]="'link-active'" href="/tasks/bucket/{{nav.id}}" *ngFor="let nav of taskBuckets">{{nav.title}}</a>
+        <div class="bucket-input-container" fxLayout="row" fxLayoutAlign="space-around center">
+          <input matInput type="text" placeholder="New Bucket" #bucketName>
           <button mat-icon-button (click)="createNewBucket(bucketName.value)">
             <mat-icon>add</mat-icon>
           </button>

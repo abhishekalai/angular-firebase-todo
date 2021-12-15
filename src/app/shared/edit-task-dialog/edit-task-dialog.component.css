@@ -1,0 +1,15 @@
+.mat-dialog-content {
+  margin: 0;
+  padding: 0;
+}
+
+.task-title-input {
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  width: 100%;
+}
+
+.task-title-input:hover {
+  background-color: #d9d9d9;
+}

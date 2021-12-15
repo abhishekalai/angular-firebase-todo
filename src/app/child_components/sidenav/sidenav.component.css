@@ -29,3 +29,21 @@ h1.app-name {
      `<body>` to be our scrolling element for mobile layouts. */
   flex: 1 0 auto;
 }
+
+a.link-active {
+  font-weight: bold;
+  background-color: #e0e0e0;
+}
+
+.bucket-input-container {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.bucket-input-container > input {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  border: none;
+  outline: none;
+  border-bottom: 1px solid #3f51b5;
+}

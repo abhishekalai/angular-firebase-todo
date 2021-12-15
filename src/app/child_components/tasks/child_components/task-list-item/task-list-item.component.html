@@ -1,11 +1,93 @@
-<div class="task-list-item" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px" (mouseenter)="mouseEntered=true" (mouseleave)="mouseEntered=false">
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" class="task-title-container">
-    <button mat-icon-button aria-label="Mark as Done" (click)="markAsDone()">
-      <mat-icon color="primary">radio_button_unchecked</mat-icon>
+<ng-container [ngSwitch]="filter">
+  <!--If Default view-->
+  <div *ngSwitchCase="'myday'" class="task-list-item" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px" (mouseenter)="mouseEntered=true" (mouseleave)="mouseEntered=false">
+    <div fxLayout="row" class="task-container">
+      <button mat-icon-button aria-label="Mark as Done" (click)="markAsDone()">
+        <mat-icon matTooltip="Mark as Done" color="primary">radio_button_unchecked</mat-icon>
+      </button>
+      <div fxLayout="column" fxLayoutAlign="center start">
+        <span style="cursor: pointer" (click)="openEditDialog(taskItem.id!)">{{taskItem.title}}</span>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <small class="task-bucket-name">{{taskItem.bucket ? getBucketName(taskItem.bucket) : 'Tasks'}}</small>
+          <mat-icon *ngIf="taskItem.dueDate" style="margin-left: 1.5rem">event_note</mat-icon>
+          <small *ngIf="taskItem.dueDate">{{taskItem.dueDate | date: 'fullDate'}}</small>
+          <small *ngIf="getPriorityText(taskItem.priority)" [ngClass]="{
+            'pr-highest': taskItem.priority === 0,
+            'pr-high': taskItem.priority === 1,
+            'pr-medium': taskItem.priority === 2,
+            'pr-low': taskItem.priority === 3
+          }">{{getPriorityText(taskItem.priority)}}</small>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="mouseEntered" mat-icon-button color="warn" fxFlexAlign="end" (click)="deleteTask()">
+      <mat-icon matTooltip="Delete Task">delete</mat-icon>
     </button>
-    {{taskItem.title}}
   </div>
-  <button *ngIf="mouseEntered" mat-icon-button color="warn" fxFlexAlign="end" (click)="deleteTask()">
-    <mat-icon>delete</mat-icon>
-  </button>
-</div>
+
+  <!--If Completed-->
+  <div *ngSwitchCase="'completed'" class="task-list-item" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px" (mouseenter)="mouseEntered=true" (mouseleave)="mouseEntered=false">
+    <div fxLayout="row" class="task-container">
+      <button mat-icon-button aria-label="Mark as To Do" (click)="markAsDone()">
+        <mat-icon matTooltip="Mark as To Do" color="primary">check_circle</mat-icon>
+      </button>
+      <div fxLayout="column" fxLayoutAlign="center start">
+        <span style="cursor: pointer" (click)="openEditDialog(taskItem.id!)">
+          <del>{{taskItem.title}}</del>
+        </span>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <small class="task-bucket-name">{{taskItem.bucket ? getBucketName(taskItem.bucket) : 'Tasks'}}</small>
+          <mat-icon *ngIf="taskItem.dueDate" style="margin-left: 1.5rem">event_note</mat-icon>
+          <small *ngIf="taskItem.dueDate">{{taskItem.dueDate | date: 'fullDate'}}</small>
+          <small *ngIf="getPriorityText(taskItem.priority)" [ngClass]="{
+            'pr-highest': taskItem.priority === 0,
+            'pr-high': taskItem.priority === 1,
+            'pr-medium': taskItem.priority === 2,
+            'pr-low': taskItem.priority === 3
+          }">{{getPriorityText(taskItem.priority)}}</small>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="mouseEntered" mat-icon-button color="warn" fxFlexAlign="end" (click)="deleteTask()">
+      <mat-icon matTooltip="Delete Task">delete</mat-icon>
+    </button>
+  </div>
+
+  <!--If Bucket-->
+  <div *ngSwitchCase="'bucket'" class="task-list-item" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="16px" (mouseenter)="mouseEntered=true" (mouseleave)="mouseEntered=false">
+    <div fxLayout="row" class="task-container">
+      
+      <button *ngIf="taskItem.status === _TaskStatus.Done; else completedElse" mat-icon-button aria-label="Mark as To Do" (click)="markAsToDo()">
+        <mat-icon matTooltip="Mark as To Do" color="primary">check_circle</mat-icon>
+      </button>
+      <ng-template #completedElse>
+        <button mat-icon-button aria-label="Mark as Done" (click)="markAsDone()">
+          <mat-icon matTooltip="Mark as Done" color="primary">radio_button_unchecked</mat-icon>
+        </button>
+      </ng-template>
+
+      <div fxLayout="column" fxLayoutAlign="center start">
+        <span style="cursor: pointer" (click)="openEditDialog(taskItem.id!)">
+          <del *ngIf="taskItem.status === _TaskStatus.Done; else titleCompletedElse">{{taskItem.title}}</del>
+          <ng-template #titleCompletedElse>
+            {{taskItem.title}}
+          </ng-template>
+        </span>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <small class="task-bucket-name">{{taskItem.bucket ? getBucketName(taskItem.bucket) : 'Tasks'}}</small>
+          <mat-icon *ngIf="taskItem.dueDate" style="margin-left: 1.5rem">event_note</mat-icon>
+          <small *ngIf="taskItem.dueDate">{{taskItem.dueDate | date: 'fullDate'}}</small>
+          <small *ngIf="getPriorityText(taskItem.priority)" [ngClass]="{
+            'pr-highest': taskItem.priority === 0,
+            'pr-high': taskItem.priority === 1,
+            'pr-medium': taskItem.priority === 2,
+            'pr-low': taskItem.priority === 3
+          }">{{getPriorityText(taskItem.priority)}}</small>
+        </div>
+      </div>
+    </div>
+    <button *ngIf="mouseEntered" mat-icon-button color="warn" fxFlexAlign="end" (click)="deleteTask()">
+      <mat-icon matTooltip="Delete Task">delete</mat-icon>
+    </button>
+  </div>
+</ng-container>

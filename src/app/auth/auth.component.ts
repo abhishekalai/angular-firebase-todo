@@ -66,7 +66,7 @@ export class AuthComponent implements OnInit {
     await this._firebaseAuthService.signIn(email, password);
     this.emailSignInInProgress = false;
     this.emailSignInForm.reset();
-    this._router.navigate(['tasks']);
+    this._router.navigate(['tasks/myday']);
   }
 
   async doEmailSignUp() {

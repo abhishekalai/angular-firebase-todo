@@ -1,15 +1,34 @@
-<div class="tasks-header" fxLayout="row" fxLayoutAlign="start">
-  <div fxLayout="column" fxLayoutAlign="start center">
-    <button mat-icon-button><mat-icon>menu</mat-icon></button>
+<ng-container [ngSwitch]="filter">
+  <div *ngSwitchCase="'completed'" class="tasks-header" fxLayout="row" fxLayoutAlign="start">
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <button mat-icon-button><mat-icon>check</mat-icon></button>
+    </div>
+    <div class="title-container" fxLayout="row" fxLayoutAlign="start center">
+      <h1>Completed</h1>
+    </div>
   </div>
-  <div class="title-container">
-    <h1>My Day</h1>
-    <span>{{ today | date: 'fullDate'}}</span>
+  <div *ngSwitchCase="'upcoming'" class="tasks-header" fxLayout="row" fxLayoutAlign="start">
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <button mat-icon-button><mat-icon>clock</mat-icon></button>
+    </div>
+    <div class="title-container">
+      <h1>Upcoming</h1>
+      <!-- <span>{{ today | date: 'fullDate'}}</span> -->
+    </div>
   </div>
-</div>
+  <div *ngSwitchCase="'myday'" class="tasks-header" fxLayout="row" fxLayoutAlign="start">
+    <div fxLayout="column" fxLayoutAlign="start center">
+      <button mat-icon-button><mat-icon>light_mode</mat-icon></button>
+    </div>
+    <div class="title-container">
+      <h1>My Day</h1>
+      <span>{{ today | date: 'fullDate'}}</span>
+    </div>
+  </div>
+</ng-container>
 
 <app-new-task (taskCreated)="ngOnInit()"></app-new-task>
 
 <ng-container>
-  <app-task-list-item *ngFor="let tk of tasks$" [taskItem]="tk" (itemDeleted)="deleted($event)" (itemUpdated)="updated($event)"></app-task-list-item>
+  <app-task-list-item *ngFor="let tk of tasks$" [taskItem]="tk" [filter]="filter" [taskBuckets]="taskBuckets" (itemDeleted)="deleted($event)" (itemUpdated)="updated($event)"></app-task-list-item>
 </ng-container>

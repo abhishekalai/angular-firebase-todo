@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FirebaseAuthService } from 'src/app/services/firebase-auth.service';
 import { TasksFirebaseService } from 'src/app/services/tasks.firebase.service';
-import { TaskStatus } from 'src/shared/enum';
+import { TaskPriority, TaskStatus } from 'src/shared/enum';
 
 @Component({
   selector: 'app-new-task',
@@ -23,7 +23,8 @@ export class NewTaskComponent implements OnInit {
     await this._tasks.addTask({
       title: this.taskTitle,
       createdBy: this._firebaseAuthService.userId,
-      status: TaskStatus.ToDo
+      status: TaskStatus.ToDo,
+      priority: TaskPriority.Medium,
     });
     this.taskTitle = '';
     this.taskCreated.emit('');

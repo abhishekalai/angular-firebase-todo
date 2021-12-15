@@ -1,9 +1,9 @@
-<div fxLayout="row wrap" fxLayoutAlign="start">
-  <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="95">
+<div fxLayout="row wrap" fxLayoutAlign="space-between center">
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="90">
     <mat-icon class="add-icon">add</mat-icon>
     <input type="text" fxFlex="100" [(ngModel)]="taskTitle" maxlength="150" (keypress)="checkInput($event)" class="task-title-input" placeholder="Add a task">
   </div>
-  <button *ngIf="taskTitle" mat-raised-button fxflex="5" (click)="createNewTask()">Add</button>
+  <button *ngIf="taskTitle" mat-raised-button fxflex (click)="createNewTask()">Add</button>
   <div style="padding: 0;margin: 0; margin-top: 0.5rem" fxFlex="100">
     <mat-divider></mat-divider>
   </div>
